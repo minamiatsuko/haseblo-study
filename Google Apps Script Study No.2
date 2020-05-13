@@ -10,6 +10,7 @@ function getCard() {
     var json = getCards(listId, trelloKey, trelloToken);
     // カード一覧分繰り返し
     for (var i = 0; i < json.length; i++) {
+        var　num = i+1;  //　★★★順番をつける
         var name = json[i].name;
         var idMembers = json[i].idMembers;
         var membersfullName = [];
@@ -21,7 +22,7 @@ function getCard() {
             membersfullName.push(json2.fullName);
         }
         // カード情報を整形する
-        var card = [name, idMembers, membersfullName.join(" - "), shortUrl];
+        var card = [num,name, idMembers, membersfullName.join(" - "), shortUrl];
         // 配列の末尾に追加する
         cards.push(card);
     }
@@ -90,7 +91,7 @@ function setSpreadsheet(cards) {
     // シート名を指定してシートを取得する
     var sheet = spreadsheet.getSheetByName('list3'); // ★★★
     // 行番号, 列番号, 行数, 列数を指定し、カード情報を設定
-    sheet.getRange(2, 2, cards.length, cards[0].length).setValues(cards);
+    sheet.getRange(2, 1, cards.length, cards[0].length).setValues(cards);
 }
 
 /*
@@ -104,5 +105,5 @@ function clear() {
     // シート名を指定してシートを取得する
     var sheet = spreadsheet.getSheetByName('list3'); // ★★★
     // 行番号, 列番号, 行数, 列数を指定し、スプレッドシートの値をクリアする
-    sheet.getRange(2, 2, 20, 4).clear()
+    sheet.getRange(2, 1, 20, 4).clear()
 }
